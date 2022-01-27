@@ -2,27 +2,32 @@
 using System.Xml;
 using System.Xml.Linq;
 
-XmlDocument importXmlDoc = new XmlDocument();
+Console.WriteLine("Please input the absolute path to your XML file so I can automagically convert it:");
+string filePath = @"" + Console.ReadLine();
 
+XmlDocument importXmlDoc = new XmlDocument();
 try
 {
-    importXmlDoc.Load("C:/Users/acm/RightslineSample.xml");
-    Console.WriteLine("XML file import succeeded, yay!");
+    importXmlDoc.Load(filePath);
+    Console.WriteLine("I found your XML file! Beep boop...");
 }
 catch (System.IO.FileNotFoundException)
 {
-    Console.WriteLine("XML file import failed, sorry!");
+    Console.WriteLine("XML file not found at this location, bummer!");
 }
 
-string jsonFile = "C:/Users/acm/source/repos/console_app_demo/console_app_demo/files/RightslineSample.json";
+string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+Console.WriteLine(baseDir);
+
+
+string jsonFilePath = System.IO.Path.Combine(baseDir, $@"..\..\..\..\console_app_demo\files\RightslineSampleFromXml.json");
 string jsonFormattedText = JsonConvert.SerializeXmlNode(importXmlDoc, Newtonsoft.Json.Formatting.Indented);
-File.WriteAllText(jsonFile, jsonFormattedText);
+File.WriteAllText(jsonFilePath, jsonFormattedText);
 
-Console.WriteLine(File.ReadAllText(jsonFile));
+string textExtractedFromJson = System.IO.File.ReadAllText(jsonFilePath);
+string xmlFilePath = System.IO.Path.Combine(baseDir, $@"..\..\..\..\console_app_demo\files\RightslineSampleFromJson.xml");
+XNode xmlDeserializedText = JsonConvert.DeserializeXNode(textExtractedFromJson, "Root");
+File.WriteAllText(xmlFilePath, xmlDeserializedText.ToString());
 
-string extractedTextFromJson = System.IO.File.ReadAllText(jsonFile);
-string xmlFile = "C:/Users/acm/source/repos/console_app_demo/console_app_demo/files/RightslineSample2.xml";
-XNode finalXmlText = JsonConvert.DeserializeXNode(extractedTextFromJson, "Root");
-File.WriteAllText(xmlFile, finalXmlText.ToString());
-
-Console.WriteLine(File.ReadAllText(xmlFile));
+Console.WriteLine("Conversion process is complete! Please navigate to the files folder to view your new JSON and XML files.");
+Console.WriteLine("Have a lovely day!");
