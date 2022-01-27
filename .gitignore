@@ -4,8 +4,8 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # Programme-generated files
-*.json
-*.xml
+/console_app_demo/files/RightslineSampleFromJson.xml
+/console_app_demo/files/RightslineSampleFromXml.json
 
 # User-specific files
 *.rsuser
