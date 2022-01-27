@@ -17,9 +17,6 @@ catch (System.IO.FileNotFoundException)
 }
 
 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-Console.WriteLine(baseDir);
-
-
 string jsonFilePath = System.IO.Path.Combine(baseDir, $@"..\..\..\..\console_app_demo\files\RightslineSampleFromXml.json");
 string jsonFormattedText = JsonConvert.SerializeXmlNode(importXmlDoc, Newtonsoft.Json.Formatting.Indented);
 File.WriteAllText(jsonFilePath, jsonFormattedText);
