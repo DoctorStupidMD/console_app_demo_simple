@@ -13,7 +13,7 @@ You can learn more here: https://docs.microsoft.com/en-us/dotnet/core/tutorials/
 
 This is a simple console application written in C#. It imports an XML file, turns it into JSON,
 and exports the JSON contents into a new file within the repo. It then takes the new JSON file, turns it
-back into XML, then exports the XML contents into a new file within the repo.
+back into XML, then exports the XML contents into a new file within the repo. Very basic error handling included.
 
 ## User Instructions:
 
