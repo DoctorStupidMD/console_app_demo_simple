@@ -15,8 +15,11 @@ public class Program
 
         try
         {
-            importXmlDoc.Load(filePath);
-            Console.WriteLine("I found your XML file! Beep boop...");
+            if (filePath is not null)
+            {
+                importXmlDoc.Load(filePath);
+                Console.WriteLine("I found your XML file! Beep boop...");
+            }
         }
         catch (Exception exception)
         {
@@ -41,7 +44,7 @@ public class Program
 
         string textExtractedFromJson = File.ReadAllText(jsonFilePath);
         string xmlFilePath = Path.Combine(baseDir, $@"..\..\..\..\console_app_demo\files\JsonToXmlResult.xml");
-        XNode xmlDeserializedText = JsonConvert.DeserializeXNode(textExtractedFromJson, "Root");
+        XNode? xmlDeserializedText = JsonConvert.DeserializeXNode(textExtractedFromJson, "Root"); 
         if (xmlDeserializedText is not null)
         {
             File.WriteAllText(xmlFilePath, xmlDeserializedText.ToString());
@@ -52,8 +55,15 @@ public class Program
     {
         Console.Clear();
         Console.WriteLine("Conversion process is complete! Please navigate to the files folder to view your new JSON and XML files.");
-        Thread.Sleep(1000);
+        Thread.Sleep((int)SleepyTime.Small);
         Console.WriteLine("Have a lovely day!");
         return string.Empty;
+    }
+
+    private enum SleepyTime
+    {
+        Small = 1000,
+        Medium = 2000,
+        Large = 3000
     }
 }
